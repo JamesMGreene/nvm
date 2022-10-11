@@ -10,7 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        shell: 'script -q -e -c "${{ matrix.shell }} {0}"'
+        #shell: 'script -q -e -c "${{ matrix.shell }} {0}"'
+        shell: '${{ matrix.shell }}'
 
     strategy:
       fail-fast: false
@@ -21,10 +22,10 @@ jobs:
           - dash
         suite:
           - fast
-          # - sourcing
-          # - slow
-          # - installation_node
-          # - installation_iojs
+          - sourcing
+          - slow
+          - installation_node
+          - installation_iojs
         installer:
           - curl
           - wget
