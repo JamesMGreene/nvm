@@ -18,8 +18,8 @@ jobs:
       matrix:
         shell:
           - bash
-          - sh
-          - dash
+          #- sh
+          #- dash
         suite:
           - fast
           - sourcing
