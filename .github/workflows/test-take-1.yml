@@ -12,6 +12,8 @@ jobs:
       run:
         #shell: 'script -q -e -c "${{ matrix.shell }} {0}"'
         shell: '${{ matrix.shell }} {0}'
+    env:
+      NVM_DIR: ${{ github.workspace }}
 
     strategy:
       fail-fast: false
