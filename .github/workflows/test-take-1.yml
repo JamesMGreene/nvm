@@ -13,7 +13,8 @@ jobs:
         #shell: 'script -q -e -c "${{ matrix.shell }} {0}"'
         shell: '${{ matrix.shell }} {0}'
     env:
-      NVM_DIR: ${{ github.workspace }}
+      #NVM_DIR: ${{ github.workspace }}
+      NVM_DIR: '${{ env.HOME }}/.nvm'
 
     strategy:
       fail-fast: false
