@@ -495,10 +495,13 @@ nvm_version_path() {
     nvm_err 'version is required'
     return 3
   elif nvm_is_iojs_version "${VERSION}"; then
+    echo JMG iojs
     nvm_echo "$(nvm_version_dir iojs)/$(nvm_strip_iojs_prefix "${VERSION}")"
   elif nvm_version_greater 0.12.0 "${VERSION}"; then
+    echo JMG old
     nvm_echo "$(nvm_version_dir old)/${VERSION}"
   else
+    echo JMG new
     nvm_echo "$(nvm_version_dir new)/${VERSION}"
   fi
 }

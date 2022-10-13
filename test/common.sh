@@ -39,11 +39,12 @@ make_fake_node() {
     return 5
   }
 
+  echo >&2 "VERSION: $VERSION"
+  echo >&2 "FORMATTED_VERSION: $FORMATTED_VERSION"
+  echo >&2 "BIN_PATH: $BIN_PATH"
+  echo >&2 "NVM_DIR: $NVM_DIR"
+
   mkdir -p "${BIN_PATH}" || {
-    echo >&2 "VERSION: $VERSION"
-    echo >&2 "FORMATTED_VERSION: $FORMATTED_VERSION"
-    echo >&2 "BIN_PATH: $BIN_PATH"
-    echo >&2 "NVM_DIR: $NVM_DIR"
     echo >&2 'unable to make bin dir'
     return 2
   }
