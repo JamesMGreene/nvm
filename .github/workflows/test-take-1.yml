@@ -52,10 +52,9 @@ jobs:
       - run: npm bin
       - run: env
       - run: echo $NVM_DIR
-      - run: TERM=xterm-256color SHELL="${{ matrix.shell }}" URCHIN="$(npm bin)/urchin" make test-${{ matrix.shell }}
-        working-directory: '${{ env.HOME }}/.nvm'
+      - run: TERM=xterm-256color SHELL="${{ matrix.shell }}" URCHIN="$(npm bin)/urchin" NVM_DIR="$NVM_DIR" make test-${{ matrix.shell }}
         env:
-          NVM_DIR: '${{ env.HOME }}/.nvm'
+          NVM_DIR: '${{ env.NVM_DIR }}'
           TEST_SUITE: ${{ matrix.suite }}
 
   nvm:
