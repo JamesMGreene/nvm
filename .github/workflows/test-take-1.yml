@@ -52,7 +52,7 @@ jobs:
       - run: npm ls urchin
       - run: npm bin
       - run: env
-      - run: echo $NVM_DIR
+      - run: echo $NVM_DIR >> $GITHUB_ENV
       - run: TERM=xterm-256color SHELL="${{ matrix.shell }}" URCHIN="$(npm bin)/urchin" make test-${{ matrix.shell }}
         env:
           TEST_SUITE: ${{ matrix.suite }}
