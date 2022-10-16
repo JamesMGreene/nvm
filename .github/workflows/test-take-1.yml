@@ -38,6 +38,7 @@ jobs:
             installer: wget
 
     steps:
+      - run: echo $NVM_DIR
       - uses: actions/checkout@v3
       - run: sudo ${{ matrix.shell }} --version 2> /dev/null || dpkg -s ${{ matrix.shell }} 2> /dev/null || which ${{ matrix.shell }}
       - run: curl --version
