@@ -1,0 +1,69 @@
+# From: https://github.com/ljharb/nvm/pull/8
+
+name: 'Test Suites: take 1'
+
+on: [pull_request, push]
+
+jobs:
+  tests:
+    name: 'test suites'
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        #shell: 'script -q -e -c "${{ matrix.shell }} {0}"'
+        shell: '${{ matrix.shell }} {0}'
+
+    strategy:
+      fail-fast: false
+      matrix:
+        shell:
+          - bash
+          #- sh
+          #- dash
+        suite:
+          - fast
+          - sourcing
+          - slow
+          - installation_node
+          - installation_iojs
+        installer:
+          - curl
+          - wget
+        include:
+          - suite: install_script
+            shell: bash
+            installer: curl
+          - suite: install_script
+            shell: bash
+            installer: wget
+
+    steps:
+      - run: echo $NVM_DIR
+      - uses: actions/checkout@v3
+      - run: sudo ${{ matrix.shell }} --version 2> /dev/null || dpkg -s ${{ matrix.shell }} 2> /dev/null || which ${{ matrix.shell }}
+      - run: curl --version
+      - run: wget --version
+      - uses: ljharb/actions/node/run@main
+        name: 'npm install && version checks'
+        with:
+          node-version: 'lts/*'
+          skip-ls-check: true
+          shell-command: echo installed
+      - run: npm ls urchin
+      - run: npm bin
+      - run: env
+      - run: echo "NVM_DIR=$NVM_DIR" >> $GITHUB_ENV
+      - run: echo $NVM_DIR
+      - run: echo $HOME
+      - run: echo $GITHUB_WORKSPACE
+      - run: printenv
+      - run: TERM=xterm-256color SHELL="${{ matrix.shell }}" URCHIN="$(npm bin)/urchin" make test-${{ matrix.shell }}
+        env:
+          TEST_SUITE: ${{ matrix.suite }}
+
+  nvm:
+    name: 'all test suites, all shells'
+    needs: [tests]
+    runs-on: ubuntu-latest
+    steps:
+      - run: 'echo tests completed'
