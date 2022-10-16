@@ -7,9 +7,6 @@ set -ex
 
   # Back up
 
-  echo NVM_DIR from setup = $NVM_DIR
-  echo PWD = $PWD
-
   type setopt >/dev/null 2>&1 && setopt NULL_GLOB
   type shopt >/dev/null 2>&1 && shopt -s nullglob
   rm -Rf v* src alias

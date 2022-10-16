@@ -56,6 +56,7 @@ jobs:
       - run: echo $NVM_DIR
       - run: echo $HOME
       - run: echo $GITHUB_WORKSPACE
+      - run: printenv
       - run: TERM=xterm-256color SHELL="${{ matrix.shell }}" URCHIN="$(npm bin)/urchin" make test-${{ matrix.shell }}
         env:
           TEST_SUITE: ${{ matrix.suite }}
